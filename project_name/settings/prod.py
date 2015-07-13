@@ -22,7 +22,7 @@ STATIC_ROOT = os.path.join(VAR_ROOT, 'static')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
+        'NAME': '{{project_name}}',
         'USER': '',
         'PASSWORD': '',
         'HOST': 'localhost',

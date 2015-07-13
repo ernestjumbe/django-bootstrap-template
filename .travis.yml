@@ -1,0 +1,12 @@
+language: python
+python:
+  - 2.7
+install:
+  - pip install -r requirements.txt
+before_script:
+  - psql -c 'create database {{project_name}}test;' -U postgres
+  - sed -i -e 's/getpass.getuser()/"postgres"/g' {{project_name}}/settings/ci.py
+  - python manage.py makemigrations --settings={{project_name}}.settings.ci
+  - python manage.py migrate --settings={{project_name}}.settings.ci
+script:
+  - python manage.py test --settings={{project_name}}.settings.ci
