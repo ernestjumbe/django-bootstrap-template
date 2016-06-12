@@ -71,10 +71,6 @@ def _install_gunicorn():
 	with cd(REMOTE_PROJECT_PATH + '/' + PROJECT_NAME), prefix(venv):
 		sudo("pip install gunicorn")
 
-# def _install_gunicorn():
-# 	with cd('/opt/drbenv/detrundebord'), prefix(venv):
-# 		sudo("newrelic-admin generate-config 88ce58872e03a1ac6836805effa976883133ee4a newrelic.ini")
-
 def _collectstatic():
 	_djangoManage("collectstatic --noinput")
 
@@ -104,8 +100,8 @@ def deploy():
 		sudo('virtualenv --no-site-packages /opt/drbenv')
 
 	with cd('/opt/drbenv'):
-		run('mkdir -p ' + PROJECT_NAME)
-		run('mkdir -p tmp')
+		run('mkdir -Rf ' + PROJECT_NAME)
+		run('mkdir -Rf tmp')
 	
 	put('latest.zip', REMOTE_PROJECT_PATH + '/' + PROJECT_NAME)
 
@@ -113,8 +109,8 @@ def deploy():
 		sudo('unzip latest.zip')
 		sudo('rm latest.zip')
 
-	sudo('mkdir -p /var/www/'+ PROJECT_NAME +'/static')
-	sudo('mkdir -p /var/www/'+ PROJECT_NAME +'/media')
+	sudo('mkdir -Rf /var/www/'+ PROJECT_NAME +'/static')
+	sudo('mkdir -Rf /var/www/'+ PROJECT_NAME +'/media')
 
 	_install_deps()
 	_migrate()
@@ -133,7 +129,7 @@ def pdeploy():
 
 	with cd(REMOTE_PROJECT_PATH + '/' +PROJECT_NAME):
 		sudo('unzip latest.zip')
-		sudo('rm latest.zip')
+		sudo('rm -Rf latest.zip')
 
 	_install_deps()
 	_migrate()
@@ -141,7 +137,6 @@ def pdeploy():
 	restart()
 
 def cleanup():
-	#sudo('rm -rf /opt/drbenv/detrundebord/')
 	sudo('rm -rf ' + REMOTE_PROJECT_PATH)
 	sudo('rm -rf /etc/supervisor/conf.d/gunicorn.conf')
 	sudo('rm -rf '+ REMOTE_PROJECT_PATH +'/gunicorn_config.py')

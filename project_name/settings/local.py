@@ -1,6 +1,5 @@
 from {{project_name}}.settings.base import * 
 DEBUG = True
-TEMPLATE_DEBUG = True
 
 database_dir = os.path.join(BASE_DIR, 'databases')
 
@@ -14,8 +13,9 @@ if not os.path.exists(media_dir):
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(database_dir, 'dev.db'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '{{project_name}}',
+        'HOST': 'localhost'
     }
 }
 
@@ -71,8 +71,8 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
 
-# Mail Catcher
-# =============
+# Mail Catcher Email Settings
+# ===========================
 
 if DEBUG:
     EMAIL_HOST = '127.0.0.1'
