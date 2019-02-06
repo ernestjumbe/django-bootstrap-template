@@ -1,4 +1,4 @@
-from {{project_name}}.settings.base import * 
+from {{project_name}}.settings.base import *
 DEBUG = True
 
 database_dir = os.path.join(BASE_DIR, 'databases')
@@ -21,10 +21,10 @@ DATABASES = {
 
 # Application definition
 
-INSTALLED_APPS += (
+INSTALLED_APPS += [
 	'debug_toolbar',
 	'django_extensions',
-)
+]
 
 #==============================================================================
 # Static Files
@@ -38,9 +38,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Middleware
 #==============================================================================
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE += [
 	'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
+]
 
 #==============================================================================
 # Miscellaneous project settings
